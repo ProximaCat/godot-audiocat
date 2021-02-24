@@ -6,7 +6,7 @@ extends Node2D
 
 # PLEASE rename this two default folders!
 var ost_folder = "res://audiocat/audio/ost/"
-var effects_folder = "res://audiocat/audio/sfx/"
+var sfx_folder = "res://audiocat/audio/sfx/"
 
 
 # multiple audio stream library;
@@ -40,7 +40,7 @@ func get_full_filename(filename, default_folder):
 
 
 # All you need to do is to call this function for background music!
-func play_soundtrack(filename):
+func play_ost(filename):
 	
 	var soundname = self.get_full_filename(filename, ost_folder)
 	if not ResourceLoader.exists(soundname): return
@@ -53,9 +53,9 @@ func play_soundtrack(filename):
 	
 
 # Now the "play once" audio effect
-func play_effect(filename):
+func play_sfx(filename):
 	
-	var soundname = self.get_full_filename(filename, effects_folder)
+	var soundname = self.get_full_filename(filename, sfx_folder)
 	if not ResourceLoader.exists(soundname): return
 	
 	# set a new audio channel and add to the child
@@ -94,7 +94,7 @@ func volume(sound = 100):
 
 # --- FADE OUT TO PLAY THE NEXT SOUNDTRACK ---
 
-func fade_play_soundtrack(name, speed = 3.0):
+func fade_play_ost(name, speed = 3.0):
 	
 	var soundname = self.get_full_filename(name, ost_folder)
 	if not ResourceLoader.exists(soundname): return
@@ -103,7 +103,7 @@ func fade_play_soundtrack(name, speed = 3.0):
 	#if not Utils.file_exist(filename): return
 	
 	if soundtrack_player == null: # no sound being played right now? play it!
-		play_soundtrack(soundname)
+		play_ost(soundname)
 		return
 	
 	# Tween fade-out for music switch
