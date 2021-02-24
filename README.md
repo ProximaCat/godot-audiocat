@@ -28,7 +28,7 @@ This code only plays OGG files. If you have MP3/WAV, consider to convert to OGG.
 
 - **Which folder should I add my music**?
 
-Everywhere; although, the default directory folder is "res://audio/ost/" and "res://audio/sfx/". You can change it on Audio.gd, or by code "Audio.ost_folder" and "Audio."
+Everywhere; although, the default directory folder is "res://audio/ost/" and "res://audio/sfx/". You can change it on Audio.gd, or by code "Audio.ost_folder" and "Audio.sfx_folder". You can also set a direct link "res://your_folder/.../your_audio.ogg".
 
 - **Can I play two OSTs at the same time?**
 
