@@ -1,0 +1,154 @@
+extends Node2D
+
+# 			------ AUDIO -------
+# 	Game with sound! This class is responsible to work on playing
+# 	common audio, like games and such. 
+
+# PLEASE rename this two default folders!
+var ost_folder = "res://audio_cat/audio/ost/"
+var effects_folder = "res://audio_cat/audio/sfx/"
+
+# multiple audio stream library;
+# 1) effects plays once and is removed from memory
+#2) soundtrack has separated index
+var audio_library = {} 
+
+# only one loopable soundtrack at the time!
+var soundtrack_player = null 
+
+# Tween for effects
+var tween = null
+
+# for the multiple audio stream control
+var audio_number = 0
+
+
+# Verify if file exists
+func file_exist(filename):
+	var fileitem = File.new()
+	var exists = fileitem.file_exists(filename)
+	fileitem.close()
+	fileitem = null
+	return exists
+
+
+# User cases:
+# - "boss4", plays from default folder (loads "boss4.ogg"
+# - "res://files/audio....", for the absolute path
+# - "explosion1.ogg", plays from the default folder.
+func get_full_filename(filename, default_folder):
+	# if not a direct res:// file is found, a string can be made using the default folder
+	if filename.find("res:") < 0:
+		filename = default_folder + filename 
+	# ... only OGG sounds can be played:
+	if filename.find(".ogg") < 0:
+		filename = filename + ".ogg"
+	
+	return filename
+
+
+# All you need to do is to call this function for background music!
+func play_soundtrack(filename):
+	
+	var soundname = self.get_full_filename(filename, ost_folder)
+	if not file_exist(soundname): return
+	
+	# volume back to normal, load file, set as loop... and play
+	soundtrack_player.volume_db = 0
+	soundtrack_player.stream = load(soundname)
+	soundtrack_player.stream.loop = true
+	soundtrack_player.play()
+	
+
+# Now the "play once" audio effect
+func play_effect(filename):
+	
+	var soundname = self.get_full_filename(filename, effects_folder)
+	if not file_exist(soundname): return
+	
+	# set a new audio channel and add to the child
+	var audio_player = AudioStreamPlayer.new()
+	self.add_child(audio_player)
+	
+	# setup this new audio channel
+	audio_player.volume_db = 0
+	audio_player.stream = load(soundname)
+	audio_player.stream.loop = false
+	audio_player.play()
+	
+	# add that channel into the library
+	audio_library["audio" + str(audio_number)] = audio_player
+	
+	# event for when stopping to play the sound
+	audio_player.connect("finished", self, "remove_audio_after_played", [{"object": audio_player, "index": "audio" + str(audio_number)}] )
+	
+	# control the position and the number of active audios
+	audio_number = audio_number + 1
+	if audio_number > 999: audio_number = 0 # so it won't go above 2^64, y'know, people are crazy
+
+
+# after the audio effect is complete, the audio channel is removed, deleted from array and cleaned from RAM
+func remove_audio_after_played(options):
+	self.remove_child(options['object'])
+	audio_library.erase(options['index'])
+
+
+func volume(sound = 100):
+	if soundtrack_player == null: return
+	soundtrack_player.volume_db = sound - 100
+	
+
+
+
+# --- FADE OUT TO PLAY THE NEXT SOUNDTRACK ---
+
+func fade_play_soundtrack(name, speed = 3.0):
+	
+	var soundname = self.get_full_filename(name, ost_folder)
+	if not file_exist(soundname): return
+	
+	#var filename = effects_folder + name + ".ogg"
+	#if not Utils.file_exist(filename): return
+	
+	if soundtrack_player == null: # no sound being played right now? play it!
+		play_soundtrack(soundname)
+		return
+	
+	# Tween fade-out for music switch
+	tween.interpolate_property(soundtrack_player, "volume_db", 0, -80, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
+	tween.interpolate_callback(self, speed + 0.2, "play_soundtrack", soundname) #execute after volume down
+	tween.start()
+
+# -------------- END FADE OUT --------------
+
+# basically fade out the actual sound
+func fade_out(speed = 2.0):
+	if soundtrack_player == null: return
+	tween.interpolate_property(soundtrack_player, "volume_db", 0, -80, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
+	tween.start()
+
+#fade in the actual sound
+func fade_in(speed = 2.0):
+	if soundtrack_player == null: return
+	tween.interpolate_property(soundtrack_player, "volume_db", -80, 0, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
+	tween.start()
+
+# pause the soundtrack player
+func pause():
+	if soundtrack_player == null: return
+	if soundtrack_player.playing: soundtrack_player.stop()
+
+#un-pause the soundtrack player
+func resume():
+	if soundtrack_player == null: return
+	if soundtrack_player.playing: soundtrack_player.play()
+	
+	
+# ------------ READY? ----------------
+
+func _ready():
+	self.soundtrack_player = AudioStreamPlayer.new()
+	self.add_child(soundtrack_player)
+
+	tween = Tween.new()
+	self.add_child(tween)

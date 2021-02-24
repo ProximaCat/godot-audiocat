@@ -16,8 +16,23 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot AudioCat Demo"
+config/description="Demo Test for AudioCat.
+
+Github: https://github.com/ProximaCat/godot-audio-cat
+Website: https://proximacat.com/"
+run/main_scene="res://audio_demo.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Audio="*res://audio_cat/Audio.gd"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
