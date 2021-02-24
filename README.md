@@ -26,6 +26,9 @@ Well, that ain't the idea, y'know. You can switch between two OSTs using the "pl
 - **How many effects can I play at the same time?**
 As many as your heart desire. The audio array has a loopable index of 999 items of play-once-and-discarg sounds, so.... go crazy.
 
+- **Can I set the audio source in an object/node?**
+Not yet. It's planned for a future release.
+
 ## Credits
 Code is by me, ProximaCat.
 Personal Website - https://proximacat.com/
