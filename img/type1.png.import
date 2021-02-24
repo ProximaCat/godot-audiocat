@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/type2.png-2eee5e23f286d4edbaea247928f1ed77.stex"
+path="res://.import/type1.png-51e542c8cbe9f78982de6e812c2efffa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://audiocat/img/type2.png"
-dest_files=[ "res://.import/type2.png-2eee5e23f286d4edbaea247928f1ed77.stex" ]
+source_file="res://img/type1.png"
+dest_files=[ "res://.import/type1.png-51e542c8cbe9f78982de6e812c2efffa.stex" ]
 
 [params]
 

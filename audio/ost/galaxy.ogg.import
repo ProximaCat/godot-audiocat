@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/galaxy.ogg-7f837651e2df1fb3941a8da9299725e3.oggstr"
+
+[deps]
+
+source_file="res://audio/ost/galaxy.ogg"
+dest_files=[ "res://.import/galaxy.ogg-7f837651e2df1fb3941a8da9299725e3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
