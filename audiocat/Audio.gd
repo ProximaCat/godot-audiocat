@@ -10,11 +10,11 @@ var sfx_folder = "res://audiocat/audio/sfx/"
 
 # multiple audio stream library;
 # 1) effects plays once and is removed from memory
-#2) soundtrack has separated index
+#2) ost has separated index
 var audio_library = {} 
 
-# only one loopable soundtrack at the time!
-var soundtrack_player = null 
+# only one loopable ost at the time!
+var ost_player = null 
 
 # Tween for effects
 var tween = null
@@ -29,7 +29,7 @@ var audio_number = 0
 # - "explosion1.ogg", plays from the default folder.
 func get_full_filename(filename, default_folder):
 	# if not a direct res:// file is found, a string can be made using the default folder
-	if filename.find("/") < 0:
+	if filename.find("res:/") < 0:
 		filename = default_folder + filename 
 	# ... only OGG sounds can be played:
 	if filename.find(".ogg") < 0:
@@ -45,10 +45,10 @@ func play_ost(filename):
 	if not ResourceLoader.exists(soundname): return
 	
 	# volume back to normal, load file, set as loop... and play
-	soundtrack_player.volume_db = 0
-	soundtrack_player.stream = load(soundname)
-	soundtrack_player.stream.loop = true
-	soundtrack_player.play()
+	ost_player.volume_db = 0
+	ost_player.stream = load(soundname)
+	ost_player.stream.loop = true
+	ost_player.play()
 	
 
 # Now the "play once" audio effect
@@ -85,13 +85,13 @@ func remove_audio_after_played(options):
 
 
 func volume(sound = 100):
-	if soundtrack_player == null: return
-	soundtrack_player.volume_db = sound - 100
+	if ost_player == null: return
+	ost_player.volume_db = sound - 100
 	
 
 
 
-# --- FADE OUT TO PLAY THE NEXT SOUNDTRACK ---
+# --- FADE OUT TO PLAY THE NEXT ost ---
 
 func fade_play_ost(name, speed = 3.0):
 	
@@ -101,46 +101,46 @@ func fade_play_ost(name, speed = 3.0):
 	#var filename = effects_folder + name + ".ogg"
 	#if not Utils.file_exist(filename): return
 	
-	if soundtrack_player == null: # no sound being played right now? play it!
+	if ost_player == null: # no sound being played right now? play it!
 		play_ost(soundname)
 		return
 	
 	# Tween fade-out for music switch
-	tween.interpolate_property(soundtrack_player, "volume_db", 0, -80, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
-	tween.interpolate_callback(self, speed + 0.2, "play_soundtrack", soundname) #execute after volume down
+	tween.interpolate_property(ost_player, "volume_db", 0, -80, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
+	tween.interpolate_callback(self, speed + 0.2, "play_ost", soundname) #execute after volume down
 	tween.start()
 
 # -------------- END FADE OUT --------------
 
 # basically fade out the actual sound
 func fade_out(speed = 2.0):
-	if soundtrack_player == null: return
-	tween.interpolate_property(soundtrack_player, "volume_db", 0, -80, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
+	if ost_player == null: return
+	tween.interpolate_property(ost_player, "volume_db", 0, -80, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
 	tween.start()
 
 #fade in the actual sound
 func fade_in(speed = 2.0):
-	if soundtrack_player == null: return
-	tween.interpolate_property(soundtrack_player, "volume_db", -80, 0, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
+	if ost_player == null: return
+	tween.interpolate_property(ost_player, "volume_db", -80, 0, speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT) #volume down
 	tween.start()
 
-# pause the soundtrack player
+# pause the ost player
 func pause():
-	if soundtrack_player == null: return
-	if soundtrack_player.playing: soundtrack_player.stop()
+	if ost_player == null: return
+	if ost_player.playing: ost_player.stop()
 
-#un-pause the soundtrack player
+#un-pause the ost player
 func resume():
-	if soundtrack_player == null: return
-	if soundtrack_player.playing: soundtrack_player.play()
+	if ost_player == null: return
+	if ost_player.playing: ost_player.play()
 
 
 # ------------ READY? ----------------
 
 func _ready():
 	
-	self.soundtrack_player = AudioStreamPlayer.new()
-	self.add_child(soundtrack_player)
+	self.ost_player = AudioStreamPlayer.new()
+	self.add_child(ost_player)
 
 	tween = Tween.new()
 	self.add_child(tween)
