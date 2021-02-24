@@ -17,11 +17,18 @@ Now you have audio in your entire game, even between scenes!
 * **Audio.volume(sound = 100)** - 100 is normal; 0 is mute; 200 is.... please don't.
 
 ## F.A.Q
-- Which audio formats are supported?
+- **Which audio formats are supported?**
 This code only plays OGG files. If you have MP3/WAV, consider to convert to OGG. It's better and also has good compression and native support.
 
-- Can I play two OSTs at the same time?
+- **Can I play two OSTs at the same time?**
 Well, that ain't the idea, y'know. You can switch between two OSTs using the "play_soundtrack()" method; the switch will be almost instantly.
 
-- How many effects can I play at the same time
+- **How many effects can I play at the same time?**
 As many as your heart desire. The audio array has a loopable index of 999 items of play-once-and-discarg sounds, so.... go crazy.
+
+## Credits
+Code is by me, ProximaCat.
+Personal Website - https://proximacat.com/
+Twitter: https://twitter.com/proximacat
+
+Godot Engine: https://godotengine.org/
