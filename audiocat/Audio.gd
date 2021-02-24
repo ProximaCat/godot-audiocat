@@ -5,8 +5,9 @@ extends Node2D
 # 	common audio, like games and such. 
 
 # PLEASE rename this two default folders!
-var ost_folder = "res://audio_cat/audio/ost/"
-var effects_folder = "res://audio_cat/audio/sfx/"
+var ost_folder = "res://audiocat/audio/ost/"
+var effects_folder = "res://audiocat/audio/sfx/"
+
 
 # multiple audio stream library;
 # 1) effects plays once and is removed from memory
@@ -23,22 +24,13 @@ var tween = null
 var audio_number = 0
 
 
-# Verify if file exists
-func file_exist(filename):
-	var fileitem = File.new()
-	var exists = fileitem.file_exists(filename)
-	fileitem.close()
-	fileitem = null
-	return exists
-
-
 # User cases:
 # - "boss4", plays from default folder (loads "boss4.ogg"
 # - "res://files/audio....", for the absolute path
 # - "explosion1.ogg", plays from the default folder.
 func get_full_filename(filename, default_folder):
 	# if not a direct res:// file is found, a string can be made using the default folder
-	if filename.find("res:") < 0:
+	if filename.find("/") < 0:
 		filename = default_folder + filename 
 	# ... only OGG sounds can be played:
 	if filename.find(".ogg") < 0:
@@ -51,7 +43,7 @@ func get_full_filename(filename, default_folder):
 func play_soundtrack(filename):
 	
 	var soundname = self.get_full_filename(filename, ost_folder)
-	if not file_exist(soundname): return
+	if not ResourceLoader.exists(soundname): return
 	
 	# volume back to normal, load file, set as loop... and play
 	soundtrack_player.volume_db = 0
@@ -64,7 +56,7 @@ func play_soundtrack(filename):
 func play_effect(filename):
 	
 	var soundname = self.get_full_filename(filename, effects_folder)
-	if not file_exist(soundname): return
+	if not ResourceLoader.exists(soundname): return
 	
 	# set a new audio channel and add to the child
 	var audio_player = AudioStreamPlayer.new()
@@ -105,7 +97,7 @@ func volume(sound = 100):
 func fade_play_soundtrack(name, speed = 3.0):
 	
 	var soundname = self.get_full_filename(name, ost_folder)
-	if not file_exist(soundname): return
+	if not ResourceLoader.exists(soundname): return
 	
 	#var filename = effects_folder + name + ".ogg"
 	#if not Utils.file_exist(filename): return
@@ -142,11 +134,12 @@ func pause():
 func resume():
 	if soundtrack_player == null: return
 	if soundtrack_player.playing: soundtrack_player.play()
-	
-	
+
+
 # ------------ READY? ----------------
 
 func _ready():
+	
 	self.soundtrack_player = AudioStreamPlayer.new()
 	self.add_child(soundtrack_player)
 

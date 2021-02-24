@@ -1,19 +1,19 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://audio_cat/fonts/GreenFlame/GreenFlame.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://audio_cat/img/type1.png" type="Texture" id=2]
-[ext_resource path="res://audio_cat/img/type2.png" type="Texture" id=3]
+[ext_resource path="res://audiocat/fonts/GreenFlame/GreenFlame.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://audiocat/img/type1.png" type="Texture" id=2]
+[ext_resource path="res://audiocat/img/type2.png" type="Texture" id=3]
 [ext_resource path="res://audio_demo.gd" type="Script" id=4]
-[ext_resource path="res://audio_cat/img/background.jpg" type="Texture" id=5]
-[ext_resource path="res://audio_cat/img/particle.png" type="Texture" id=6]
+[ext_resource path="res://audiocat/img/background.jpg" type="Texture" id=5]
+[ext_resource path="res://audiocat/img/particle.png" type="Texture" id=6]
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0.0189873, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.221519, 0.0545565 ), 0.0, 0.0, 0, 0, Vector2( 0.556962, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.778481, 0.145466 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
-curve = SubResource( 5 )
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=3]
 lifetime_randomness = 1.0
 trail_divisor = 2
 emission_shape = 2
@@ -22,21 +22,21 @@ flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale_curve = SubResource( 6 )
+scale_curve = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=4]
 size = 48
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=5]
 size = 28
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=6]
 size = 14
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 1 )
 
 [node name="AudioDemo" type="Node2D"]
@@ -53,7 +53,7 @@ amount = 800
 lifetime = 3.0
 preprocess = 5.0
 randomness = 1.0
-process_material = SubResource( 7 )
+process_material = SubResource( 3 )
 texture = ExtResource( 6 )
 
 [node name="installation" type="Node2D" parent="."]
@@ -63,7 +63,7 @@ margin_left = 16.0
 margin_top = 22.0
 margin_right = 259.0
 margin_bottom = 67.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 text = "AUDIOCAT"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -75,7 +75,7 @@ margin_top = 71.0
 margin_right = 467.0
 margin_bottom = 98.0
 rect_pivot_offset = Vector2( 241, 13.5 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 5 )
 text = "Sound everywhere, anytime"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -87,7 +87,7 @@ margin_top = 191.0
 margin_right = 375.0
 margin_bottom = 222.0
 rect_pivot_offset = Vector2( 672, 162.455 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "just copy \"audio.gd\" into your project!
 then, Go in \"projects = project settings...\""
 __meta__ = {
@@ -100,8 +100,10 @@ margin_top = 100.0
 margin_right = 380.0
 margin_bottom = 131.0
 rect_pivot_offset = Vector2( 672, 162.455 )
-custom_fonts/font = SubResource( 3 )
-text = "by Proximacat ___ https://proximacat.com/"
+custom_fonts/font = SubResource( 6 )
+text = " https://proximacat.com/
+https://github.com/ProximaCat/
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,7 +114,7 @@ margin_top = 461.0
 margin_right = 1011.0
 margin_bottom = 577.0
 rect_pivot_offset = Vector2( 672, 162.455 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "Credit music
 from PlayOnLoop.com
 and \"phoenix1291\"
@@ -131,7 +133,7 @@ margin_top = 398.0
 margin_right = 481.0
 margin_bottom = 425.0
 rect_pivot_offset = Vector2( 241, 13.5 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "... and autoload the script for use whenever you want!"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -143,7 +145,7 @@ margin_top = 18.0
 margin_right = 913.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 241, 13.5 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "OST"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -155,7 +157,7 @@ margin_top = 17.0
 margin_right = 671.0
 margin_bottom = 31.0
 rect_pivot_offset = Vector2( 241, 13.5 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "sfx"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -167,7 +169,7 @@ margin_top = 223.0
 margin_right = 952.0
 margin_bottom = 239.0
 rect_pivot_offset = Vector2( 241, 13.5 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "Volume slider"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -188,7 +190,7 @@ margin_left = 814.0
 margin_top = 48.0
 margin_right = 978.0
 margin_bottom = 87.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "Play music 1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -199,7 +201,7 @@ margin_left = 811.0
 margin_top = 104.0
 margin_right = 975.0
 margin_bottom = 143.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "Play music 2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -210,7 +212,7 @@ margin_left = 812.0
 margin_top = 161.0
 margin_right = 976.0
 margin_bottom = 200.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "Switch music"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -221,7 +223,7 @@ margin_left = 569.0
 margin_top = 49.0
 margin_right = 646.0
 margin_bottom = 88.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "JUMP"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -232,7 +234,7 @@ margin_left = 571.0
 margin_top = 162.0
 margin_right = 648.0
 margin_bottom = 201.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "space"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -243,7 +245,7 @@ margin_left = 661.0
 margin_top = 162.0
 margin_right = 738.0
 margin_bottom = 201.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "roar"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -254,7 +256,7 @@ margin_left = 660.0
 margin_top = 50.0
 margin_right = 737.0
 margin_bottom = 89.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "PICKUP"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -265,7 +267,7 @@ margin_left = 569.0
 margin_top = 105.0
 margin_right = 737.0
 margin_bottom = 144.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "powerup"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -276,8 +278,6 @@ margin_left = 820.0
 margin_top = 247.0
 margin_right = 973.0
 margin_bottom = 263.0
-max_value = 100.0
-step = 1.0
 value = 100.0
 __meta__ = {
 "_edit_use_anchors_": false

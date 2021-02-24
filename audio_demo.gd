@@ -7,19 +7,19 @@ onready var volume_slider = get_node("Interactive/HSlider")
 func _ready():
 	# short term for "res://audio_cat/audio/ost/POL-galactic-trek-short.ogg
 	# you can change the defaukt OST folder by changing "Audio.ost_folder"
-	Audio.play_soundtrack("POL-galactic-trek-short")
+	Audio.play_soundtrack("galaxy")
 	volume_slider.value = 100
 
 # ---------- button/volume effects for OST ----------
 func _on_Button_pressed():
 	self.audio = "trek"
-	Audio.play_soundtrack("POL-galactic-trek-short")
+	Audio.play_soundtrack("galaxy")
 	volume_slider.value = 100
 
 
 func _on_Button2_pressed():
 	self.audio = "ninja"
-	Audio.play_soundtrack("POL-ninja-panda-short")
+	Audio.play_soundtrack("ninjapanda")
 	volume_slider.value = 100
 	pass # Replace with function body.
 
@@ -28,10 +28,10 @@ func _on_Button3_pressed():
 	volume_slider.value = 100
 	if self.audio == "ninja":
 		self.audio = "trek"
-		Audio.fade_play_soundtrack("POL-galactic-trek-short", 1.0)
+		Audio.fade_play_soundtrack("galaxy", 1.0)
 	else:
 		self.audio = "ninja"
-		Audio.fade_play_soundtrack("POL-ninja-panda-short", 1.0)
+		Audio.fade_play_soundtrack("ninjapanda", 1.0)
 		
 func _on_HSlider_value_changed(value):
 	Audio.volume(value)
