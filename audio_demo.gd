@@ -37,7 +37,6 @@ func _on_HSlider_value_changed(value):
 	Audio.volume(value)
 	pass # Replace with function body.
 
-
 # ------ Now the SFX -----
 
 func _on_Button4_pressed():

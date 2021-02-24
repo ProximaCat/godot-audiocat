@@ -8,7 +8,6 @@ extends Node2D
 var ost_folder = "res://audiocat/audio/ost/"
 var sfx_folder = "res://audiocat/audio/sfx/"
 
-
 # multiple audio stream library;
 # 1) effects plays once and is removed from memory
 #2) soundtrack has separated index
