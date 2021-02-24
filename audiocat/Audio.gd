@@ -5,8 +5,8 @@ extends Node2D
 # 	common audio, like games and such. 
 
 # PLEASE rename this two default folders!
-var ost_folder = "res://audiocat/audio/ost/"
-var sfx_folder = "res://audiocat/audio/sfx/"
+var ost_folder = "res://audio/ost/"
+var sfx_folder = "res://audio/sfx/"
 
 # multiple audio stream library;
 # 1) effects plays once and is removed from memory
